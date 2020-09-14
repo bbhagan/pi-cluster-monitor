@@ -8,6 +8,8 @@ import apiKeyChecker from "./src/server/middleware/apiKeyChecker";
 
 //Routes
 import shutdown from "./src/server/routes/api/cluster/shutdown";
+import restart from "./src/server/routes/api/cluster/restart";
+import status from "./src/server/routes/api/cluster/status";
 
 const server = express();
 const router = express.Router();
@@ -44,6 +46,8 @@ server.use(express.urlencoded({ extended: false }));
 
 //Routes
 router.use("/api/cluster/shutdown", shutdown);
+router.use("/api/cluster/restart", restart);
+router.use("/api/cluster/status", status);
 
 server.use(router);
 

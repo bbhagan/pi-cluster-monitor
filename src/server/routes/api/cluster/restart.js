@@ -12,21 +12,21 @@ router.get("/", async (req, res) => {
 
 		members.forEach((wptClient) => {
 			if (wptClient.client !== 0) {
-				const execPromise = shutdownRestart("shutdown", wptClient.IP);
+				const execPromise = shutdownRestart("restart", wptClient.IP);
 				allTheCommands.push(execPromise);
 			}
 		});
 		Promise.all(allTheCommands)
 			.then((values) => {
-				shutdownRestart("shutdown");
+				shutdownRestart("restart");
 			})
 			.catch((error) => {
-				errorLogger(`Error shutdown.js router.get Error: at least one shutdown failed`);
+				errorLogger(`Error restart.js router.get Error: at least one restart failed`);
 			});
 
 		return res.json({ statusCode: 200, statusMsg: "Ok" });
 	} catch (error) {
-		errorLogger(`Error shutdown.js router.get ${error}`);
+		errorLogger(`Error restart.js router.get ${error}`);
 		res.status(500);
 		res.send(`Server Error`);
 	}
