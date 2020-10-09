@@ -1,5 +1,5 @@
 import { apiKeys } from "../staticData/apiKeys";
-import { errorLogger } from "../util/errorLogger";
+import { errorLogger } from "../../util/errorLogger";
 
 const apiKeyChecker = (req, res, next) => {
 	try {

@@ -1,22 +1,22 @@
 import { Router as _Router } from "express";
-import { errorLogger } from "../../../util/errorLogger";
-import getClusterMembers from "../../../util/getClusterMembers";
-import getWPTClusterDetails from "../../../util/getWPTClusterDetails";
+import { errorLogger } from "../../../../util/errorLogger";
+import getWPTClusterDetails from "../../../services/getWPTClusterDetails";
+import findWPTServerIP from "../../../services/findWPTServerIP";
+import formatClusterDetails from "../../../../util/formatClusterDetails";
 
 const router = _Router();
 
 router.get("/", async (req, res) => {
-	const members = await getClusterMembers();
-	let WPTServer = "";
-	members.forEach((member) => {
-		if (member.client === 0) {
-			WPTServer = member.IP;
-		}
-	});
-	const clusterDetails = await getWPTClusterDetails(WPTServer);
+	try {
+		let WPTServer = await findWPTServerIP();
+		const serverClusterDetails = await getWPTClusterDetails(WPTServer);
+		const formattedClusterDetails = formatClusterDetails(serverClusterDetails);
 
-	console.log(`clusterDetails: ${JSON.stringify(clusterDetails)}`);
-	return res.json({ statusCode: 200, statusMsg: "Ok" });
+		return res.json({ statusCode: 200, statusMsg: "Ok", data: formattedClusterDetails });
+	} catch (e) {
+		errorLogger();
+		return res.json({ statusCode: 500, statusMsg: `ERROR: ${e}` });
+	}
 });
 
 export default router;

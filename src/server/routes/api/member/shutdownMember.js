@@ -1,16 +1,11 @@
 import { Router as _Router } from "express";
-import { errorLogger } from "../../../util/errorLogger";
-import getClusterMembers from "../../../util/getClusterMembers";
-import { shutdownRestart } from "../../../util/unixCommands";
+import { errorLogger } from "../../../../util/errorLogger";
+import { shutdownRestart } from "../../../../util/unixCommands";
 
 const router = _Router();
-
 router.get("/", async (req, res) => {
 	try {
-		const allTheCommands = [];
-		const members = await getClusterMembers();
-
-		members.forEach((wptClient) => {
+		const memberIP = members.forEach((wptClient) => {
 			if (wptClient.client !== 0) {
 				const execPromise = shutdownRestart("restart", wptClient.IP);
 				allTheCommands.push(execPromise);

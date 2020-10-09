@@ -1,15 +1,18 @@
 import express from "express";
 import fs from "fs";
-import { consoleLogger } from "./src/server/util/consoleLogger";
+import { consoleLogger } from "./src/util/consoleLogger";
 
 //Middleware
 import accessLogger from "./src/server/middleware/accessLogger";
 import apiKeyChecker from "./src/server/middleware/apiKeyChecker";
 
 //Routes
-import shutdown from "./src/server/routes/api/cluster/shutdown";
-import restart from "./src/server/routes/api/cluster/restart";
+import shutdownCluster from "./src/server/routes/api/cluster/shutdownCluster";
+import restartCluster from "./src/server/routes/api/cluster/restartCluster";
 import status from "./src/server/routes/api/cluster/status";
+
+import restartMember from "./src/server/routes/api/member/restartMember";
+import shutdownMember from "./src/server/routes/api/member/shutdownMember";
 
 const server = express();
 const router = express.Router();
@@ -45,9 +48,16 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
 //Routes
-router.use("/api/cluster/shutdown", shutdown);
-router.use("/api/cluster/restart", restart);
+router.use("/api/cluster/shutdown", shutdownCluster);
+router.use("/api/cluster/restart", restartCluster);
 router.use("/api/cluster/status", status);
+
+router.use("/api/member/restart/", restartMember);
+router.use("/api/member/shutdown/:memberID", shutdownMember);
+
+router.use("/api/member/foo/:bar", function (req, res, next) {
+	console.log(`bar: ${req.params.bar}`);
+});
 
 server.use(router);
 

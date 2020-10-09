@@ -1,8 +1,8 @@
 import moment from "moment";
 import fs from "fs";
 import os from "os";
-import { consoleLogger } from "../util/consoleLogger";
-import { errorLogger } from "../util/errorLogger";
+import { consoleLogger } from "../../util/consoleLogger";
+import { errorLogger } from "../../util/errorLogger";
 
 const accessLogger = (req, res, next) => {
 	//For some reason middleware doesn't have access to these const outside of the method, here they are moved in
