@@ -11,10 +11,10 @@ export default class ClusterInfoGridLine extends React.Component {
   render() {
     return (
       <tr class="table-active">
-        <th scope="row">pi-wpt-client1</th>
-        <td>10.10.0.91</td>
-        <td>201001.181015</td>
-        <td>2500</td>
+        <th scope="row">{this.props.clientLine.id}</th>
+        <td>{this.props.clientLine.ip}</td>
+        <td>{this.props.clientLine.version}</td>
+        <td>{this.props.clientLine.upMinutes}</td>
         <td>
           {" "}
           <button type="button" class="btn btn-warning">

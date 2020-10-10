@@ -29,23 +29,15 @@ export default class ClusterInfoGrid extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <ClusterInfoGridLine clientLine="text text text" />
-
-            <tr class="table-secondary">
-              <th scope="row">pi-wpt-client2</th>
-              <td>10.10.0.92</td>
-              <td>201001.181015</td>
-              <td>2500</td>
-              <td>
-                {" "}
-                <button type="button" class="btn btn-warning">
-                  &#9900; &#9900; &#9900;
-                </button>
-              </td>
-            </tr>
+            {this.state.clusterDetails.map((client) => (
+              <ClusterInfoGridLine clientLine={client} />
+            ))}
           </tbody>
         </table>
       </div>
     );
   }
 }
+
+/*
+ */
