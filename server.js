@@ -21,15 +21,15 @@ const LOGS_DIR = process.env.LOGS_DIR;
 
 //Make sure logs dir exists
 try {
-	fs.statSync(LOGS_DIR).isDirectory();
+  fs.statSync(LOGS_DIR).isDirectory();
 } catch (e) {
-	try {
-		fs.mkdir(LOGS_DIR, () => {
-			consoleLogger(`Made logs dir: ${LOGS_DIR}`);
-		});
-	} catch (createDirError) {
-		consoleLogger(`server.js cannot create logs dir ${createDirError}`);
-	}
+  try {
+    fs.mkdir(LOGS_DIR, () => {
+      consoleLogger(`Made logs dir: ${LOGS_DIR}`);
+    });
+  } catch (createDirError) {
+    consoleLogger(`server.js cannot create logs dir ${createDirError}`);
+  }
 }
 
 //Logging
@@ -56,12 +56,12 @@ router.use("/api/member/restart/", restartMember);
 router.use("/api/member/shutdown/:memberID", shutdownMember);
 
 router.use("/api/member/foo/:bar", function (req, res, next) {
-	console.log(`bar: ${req.params.bar}`);
+  console.log(`bar: ${req.params.bar}`);
 });
 
 server.use(router);
 
 server.listen(port, (err) => {
-	if (err) throw err;
-	console.log(`Ready on http://localhost:${port}`);
+  if (err) throw err;
+  console.log(`Ready on http://localhost:${port}`);
 });
