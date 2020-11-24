@@ -1,2 +1,3 @@
 src/client/public/static/scss/bootstrap*
 src/client/public/static/scss/bootswatch/
+node_modules
