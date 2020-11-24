@@ -8,6 +8,8 @@ export default class ClusterInfoGridLine extends React.Component {
       clusterDetails: [],
     };
   }
+
+  handleClientOverlay() {}
   render() {
     return (
       <tr class="table-active">
@@ -17,7 +19,11 @@ export default class ClusterInfoGridLine extends React.Component {
         <td>{this.props.clientLine.upMinutes}</td>
         <td>
           {" "}
-          <button type="button" class="btn btn-warning">
+          <button
+            type="button"
+            onClick={this.handleClientOverlay}
+            class="btn btn-warning"
+          >
             &#9900; &#9900; &#9900;
           </button>
         </td>
